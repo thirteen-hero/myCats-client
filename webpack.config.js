@@ -2,6 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const px2rem = require('postcss-plugin-px2rem');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent');
@@ -75,7 +76,23 @@ const config = {
             },
             {
               test: /\.css$/i,
-              use: [  MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'],
+              use: [  
+                MiniCssExtractPlugin.loader, 
+                'css-loader', 
+                {
+                  loader: 'postcss-loader',
+                  options: {
+                    plugins: [
+                      px2rem({
+                        rootValue: 75,
+                        unitPrecision: 5,
+                        exclude: /node_modules/,
+                        propList: ['*'],
+                      })
+                    ]
+                  }
+                }
+              ],
             },
             {
                 test: /\.less$/i,
