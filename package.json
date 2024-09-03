@@ -35,10 +35,21 @@
     "dev": "webpack",
     "serve": "webpack serve"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@eslint/js": "^9.9.1",
+    "eslint": "^9.9.1",
+    "eslint-plugin-react": "^7.35.1",
+    "globals": "^15.9.0",
+    "typescript-eslint": "^8.4.0"
+  },
   "babel": {
     "presets": [
       "react-app"
     ]
-  }
+  },
+  "main": "index.js",
+  "repository": "https://github.com/thirteen-hero/myCats.git",
+  "author": "thirteen-hero <15931602416@163.com>",
+  "license": "MIT",
+  "private": false
 }
