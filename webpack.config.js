@@ -82,14 +82,17 @@ const config = {
                 {
                   loader: 'postcss-loader',
                   options: {
-                    plugins: [
-                      px2rem({
-                        rootValue: 75,
-                        unitPrecision: 5,
-                        exclude: /node_modules/,
-                        propList: ['*'],
-                      })
-                    ]
+                    postcssOptions: {
+                      plugins: [
+                        'autoprefixer',
+                        px2rem({
+                          rootValue: 100,
+                          unitPrecision: 5,
+                          exclude: /node_modules/,
+                          propList: ['*'],
+                        })
+                      ]
+                    }
                   }
                 }
               ],
@@ -97,7 +100,27 @@ const config = {
             {
                 test: /\.less$/i,
                 exclude: /\.module\.less/i,
-                use: [ MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'less-loader'],
+                use: [ 
+                  MiniCssExtractPlugin.loader, 
+                  'css-loader', 
+                  {
+                    loader: 'postcss-loader',
+                    options: {
+                      postcssOptions: {
+                        plugins: [
+                          'autoprefixer',
+                          px2rem({
+                            rootValue: 100,
+                            unitPrecision: 5,
+                            exclude: /node_modules/,
+                            propList: ['*'],
+                          })
+                        ]
+                      }
+                    }
+                  },
+                  'less-loader'
+                ],
             },
             {
               test: /\.module\.less/i,
@@ -121,7 +144,16 @@ const config = {
                     postcssOptions: {
                       ident: 'postcss',
                       config: false,
-                    }
+                      plugins: [
+                        'autoprefixer',
+                        px2rem({
+                          rootValue: 100,
+                          unitPrecision: 5,
+                          exclude: /node_modules/,
+                          propList: ['*'],
+                        })
+                      ]
+                    },
                   }
                 }, 
                 'less-loader'
