@@ -2,27 +2,29 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import type { RootState } from '../index';
 
+export enum CAT_TYPE {
+  ALL = 0,
+  WHITE = 1,
+  LI = 2,
+  CUP = 3,
+}
+
 export interface HomeState {
-  num: number;
+  currentCategory: CAT_TYPE;
 }
 
 const initialState: HomeState = {
-  num: 0,
+  currentCategory: 0,
 }
 
 export const counterSlice = createSlice({
   name: 'home',
   initialState,
   reducers: {
-    increment: state => {
-      state.num += 1
-    },
-    incrementByAmount: (state, action: PayloadAction<number>) => {
-      state.num += action.payload
+    handleCategoryChange: (state, action: PayloadAction<number>) => {
+      state.currentCategory = action.payload;
     }
   }
 })
 
-export const { increment, incrementByAmount } = counterSlice.actions;
-export const selectHome = (state: RootState) => state.home;
 export default counterSlice.reducer;
