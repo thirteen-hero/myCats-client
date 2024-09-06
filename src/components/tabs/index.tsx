@@ -7,7 +7,7 @@ import {
 } from '@ant-design/icons';
 import { Link, NavLink } from 'react-router-dom';
 
-import styles from './tabs.module.less';
+import styles from './index.module.less';
 
 const Tabs = () => {
   return (

@@ -1,7 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import type { RootState } from '../index';
-
 export enum CAT_TYPE {
   ALL = 0,
   WHITE = 1,
