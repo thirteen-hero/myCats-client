@@ -3,6 +3,7 @@ import { MenuOutlined } from '@ant-design/icons';
 import { Transition } from 'react-transition-group';
 import classNames from 'classnames';
 
+import sa from '@/assets/imgs/sa.jpg';
 import { HomeState, CAT_TYPE } from '@/store/reducers/home';
 import { useCommonSelector, useCommonDispatch } from '@/store/hooks';
 
@@ -21,8 +22,6 @@ const transitionStyle = {
   exited: { opacity: 0 },
   unmounted: { opacity: 0 }
 }
-
-const logo = require('@/assets/imgs/sa.jpg');
 
 const HomeHeader = () => {
   const [menuVisible, setMenuVisible] = useState<boolean>(false);
@@ -43,7 +42,7 @@ const HomeHeader = () => {
   return (
     <div className={styles.homeHeader}>
       <div className={styles.logoHeader}>
-        <img className={styles.logo} src={logo} />
+        <img className={styles.logo} src={sa} />
         <div className={styles.title}>my cats</div>
         <MenuOutlined 
           className={styles.icon} 
