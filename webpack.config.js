@@ -86,8 +86,8 @@ const config = {
                       plugins: [
                         'autoprefixer',
                         px2rem({
-                          rootValue: 100,
-                          unitPrecision: 5,
+                          rootValue: 100, // 1rem 是 100px
+                          unitPrecision: 5, // 保留五位小数
                           exclude: /node_modules/,
                           propList: ['*'],
                         })
@@ -110,8 +110,8 @@ const config = {
                         plugins: [
                           'autoprefixer',
                           px2rem({
-                            rootValue: 100,
-                            unitPrecision: 5,
+                            rootValue: 100, // 1rem 是 100px
+                            unitPrecision: 5, // 保留五位小数
                             exclude: /node_modules/,
                             propList: ['*'],
                           })
@@ -147,8 +147,8 @@ const config = {
                       plugins: [
                         'autoprefixer',
                         px2rem({
-                          rootValue: 100,
-                          unitPrecision: 5,
+                          rootValue: 100, // 1rem 是 100px
+                          unitPrecision: 5, // 保留五位小数
                           exclude: /node_modules/,
                           propList: ['*'],
                         })
