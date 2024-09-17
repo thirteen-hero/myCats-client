@@ -52,6 +52,16 @@ const config = {
                 cacheDirectory: true,
                 cacheCompression: false,
                 compact: true,
+                plugins: [
+                  [
+                    "import", 
+                    {
+                      libraryName: "antd", // 对哪个模块进行按需加载
+                      libraryDirectory: "es", // 按需加载的模块 如果实现按需加载 必须是es module
+                      style: "less",
+                    }
+                  ]
+                ]
               }
             },
             {
@@ -72,6 +82,16 @@ const config = {
                 cacheCompression: false,
                 sourceMaps: true,
                 inputSourceMap: true,
+                plugins: [
+                  [
+                    "import", 
+                    {
+                      libraryName: "antd", // 对哪个模块进行按需加载
+                      libraryDirectory: "es", // 按需加载的模块 如果实现按需加载 必须是es module
+                      style: "less",
+                    }
+                  ]
+                ]
               },
             },
             {
