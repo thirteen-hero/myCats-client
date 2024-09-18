@@ -15,6 +15,8 @@ import ErrorBoundary from './components/ErrorBoundary';
 const Home = lazy(() => import(/* webpackChunkName: 'Home' */ './pages/Home'));
 const Mine = lazy(() => import(/* webpackChunkName: 'Mine' */ './pages/Mine'));
 const Profile = lazy(() => import(/* webpackChunkName: 'Profile' */ './pages/Profile'));
+const Login = lazy(() => import(/* webpackChunkName: 'Login' */ './pages/Login'));
+const Register = lazy(() => import(/* webpackChunkName: 'Register' */ './pages/Register'));
 
 const root = createRoot(
   document.getElementById('root') as HTMLElement
@@ -31,6 +33,8 @@ root.render(
                 <Route key="home" path="/" element={<Home />} />
                 <Route key="mine" path="/mine" element={<Mine />} />
                 <Route key="profile" path="/profile" element={<Profile />} />
+                <Route key="login" path="/login" element={<Login />} />
+                <Route key="register" path="/register" element={<Register />} />
               </Routes>
             </div>
             <Tabs />

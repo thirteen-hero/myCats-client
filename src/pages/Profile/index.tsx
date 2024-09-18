@@ -24,7 +24,7 @@ const Profile = () => {
     dispatch(validateUser());
   }, []);
 
-  const { loginState }: ProfileState = useCommonSelector(state => state.profile);
+  const { loginState, user }: ProfileState = useCommonSelector(state => state.profile);
   const renderContent = () => {
     if (loginState === LOGIN_TYPE.UN_VALIDATE) {
       return null;
@@ -33,8 +33,8 @@ const Profile = () => {
       return (
         <div className={styles.userInfo}>
           <Descriptions title="当前用户">
-            <Descriptions.Item label="用户名">myCats</Descriptions.Item>
-            <Descriptions.Item label="邮箱">email</Descriptions.Item>
+            <Descriptions.Item label="用户名">{user?.userName}</Descriptions.Item>
+            <Descriptions.Item label="邮箱">{user?.email}</Descriptions.Item>
           </Descriptions>
           <Button
             type='default'

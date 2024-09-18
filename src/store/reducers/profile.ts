@@ -3,7 +3,7 @@ import {
   PayloadAction, 
   createAsyncThunk 
 } from '@reduxjs/toolkit';
-import { validate } from '@/api/profile';
+import { validate, register, login } from '@/api/profile';
 import { message } from 'antd';
 
 interface User {
@@ -18,40 +18,71 @@ export enum LOGIN_TYPE {
   UN_LOGINED = 'UN_LOGINED',
 }
 
+export interface RegisterPayload {
+  username: string;
+  password: string;
+  confirmPassword: string;
+  email: string;
+}
+
+export interface LoginPayload {
+  username: string;
+  password: string;
+}
+
 export interface ProfileState {
   loginState: LOGIN_TYPE;
   user: User | null;
-  error: string | undefined;
 }
 
 const initialState: ProfileState = {
   loginState: LOGIN_TYPE.UN_VALIDATE,
   user: null,
-  error: undefined,
 }
 
-export const validateUser = createAsyncThunk('profile/validateUser', async() => {
+export const validateUser = createAsyncThunk('profile/ser', async() => {
   return await validate();
+})
+
+export const registerUser = createAsyncThunk('profile/registerUser', async(data: RegisterPayload) => {
+  return await register(data);
+})
+
+export const loginUser = createAsyncThunk('profile/loginUser', async(data: LoginPayload) => {
+  return await login(data);
 })
 
 export const ProfileSlice = createSlice({
   name: 'profile',
   initialState,
   reducers: {
-    logout: (state: ProfileState, action: PayloadAction) => {
+    logout: (state: ProfileState, _action: PayloadAction) => {
       state.loginState = LOGIN_TYPE.UN_LOGINED;
       sessionStorage.removeItem('access_token');
-    }
+    },
   },
   extraReducers: builder => {
     builder
     .addCase(validateUser.fulfilled, (state, action) => {
       state.loginState = LOGIN_TYPE.LOGINED;
-      state.error = undefined;
+      state.user = action.payload.data;
     })
     .addCase(validateUser.rejected, (state, action) => {
       state.loginState = LOGIN_TYPE.UN_LOGINED;
-      state.error = action.error.message;
+      message.open({content: action.error.message});
+    })
+    .addCase(registerUser.fulfilled, () => {
+      message.open({content: '注册成功！'});
+    })
+    .addCase(registerUser.rejected, (state, action) => {
+      message.open({content: action.error.message});
+    })
+    .addCase(loginUser.fulfilled, (state, action) => {
+      state.loginState = LOGIN_TYPE.LOGINED;
+      sessionStorage.setItem('access_token', action.payload.data)
+      message.open({content: '登录成功！'});
+    })
+    .addCase(loginUser.rejected, (_state, action) => {
       message.open({content: action.error.message});
     })
   }
