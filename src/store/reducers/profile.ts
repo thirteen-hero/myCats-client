@@ -7,9 +7,10 @@ import { validate, register, login } from '@/api/profile';
 import { message } from 'antd';
 
 interface User {
-  userName: string;
+  username: string;
   email: string;
   avatar: string;
+  id: string;
 }
 
 export enum LOGIN_TYPE {
@@ -60,6 +61,11 @@ export const ProfileSlice = createSlice({
       state.loginState = LOGIN_TYPE.UN_LOGINED;
       sessionStorage.removeItem('access_token');
     },
+    setAvatar: (state: ProfileState, { payload }) => {
+      if (state.user) {
+        state.user.avatar = payload;
+      }
+    }
   },
   extraReducers: builder => {
     builder
@@ -74,7 +80,7 @@ export const ProfileSlice = createSlice({
     .addCase(registerUser.fulfilled, () => {
       message.open({content: '注册成功！'});
     })
-    .addCase(registerUser.rejected, (state, action) => {
+    .addCase(registerUser.rejected, (_state, action) => {
       message.open({content: action.error.message});
     })
     .addCase(loginUser.fulfilled, (state, action) => {
