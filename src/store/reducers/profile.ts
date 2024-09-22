@@ -41,7 +41,7 @@ const initialState: ProfileState = {
   user: null,
 }
 
-export const validateUser = createAsyncThunk('profile/ser', async() => {
+export const validateUser = createAsyncThunk('profile/validateUser', async() => {
   return await validate();
 })
 

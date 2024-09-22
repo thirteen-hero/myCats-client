@@ -91,7 +91,11 @@ const Profile = () => {
               >
                 {
                   user.avatar ? 
-                  <img src={user.avatar} style={{ width: '100%' }} /> : 
+                  <img 
+                    crossOrigin='anonymous'
+                    src={user.avatar}
+                    style={{ width: '100%' }} 
+                  /> : 
                   UploadButton()
                 }
               </Upload>
