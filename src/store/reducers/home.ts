@@ -5,7 +5,7 @@ import {
 } from '@reduxjs/toolkit';
 import { message } from 'antd';
 
-import { getSliders } from '@/api/home';
+import { getSliders, getProduct } from '@/api/home';
 
 export enum CAT_TYPE {
   ALL = 0,
@@ -19,18 +19,52 @@ interface Slider {
   id: string;
 }
 
+export interface Product {
+  title: string;
+  video: string;
+  poster: string;
+  url: string;
+  price: number;
+  category: CAT_TYPE;
+}
+
+interface ProductPayload {
+  category: CAT_TYPE;
+  offset: number;
+  limit: number;
+}
+
 export interface HomeState {
   currentCategory: CAT_TYPE;
   sliders: Slider[];
+  product: {
+    loading: boolean;
+    list: Product[],
+    hasMore: boolean;
+    offset: number;
+    limit: number;
+  };
 }
 
 const initialState: HomeState = {
-  currentCategory: 0,
+  currentCategory: CAT_TYPE.CUP,
   sliders: [],
+  product: {
+    loading: false,
+    list: [],
+    hasMore: false,
+    offset: 0,
+    limit: 2,
+  },
 }
 
 export const getSliderData = createAsyncThunk('home/getSliders', async() => {
   return await getSliders();
+})
+
+export const getProductData = createAsyncThunk('home/getProduct', async(data: ProductPayload) => {
+  const { category, offset, limit } = data;
+  return await getProduct(category, offset, limit);
 })
 
 export const counterSlice = createSlice({
@@ -47,6 +81,22 @@ export const counterSlice = createSlice({
       state.sliders = action.payload.data;
     })
     .addCase(getSliderData.rejected, (_state, action) => {
+      message.open({ content: action.error.message });
+    })
+    .addCase(getProductData.pending, (state, _action) => {
+      state.product.loading = true;
+    })
+    .addCase(getProductData.fulfilled, (state, action) => {
+      const { list, hasMore } = action.payload.data;
+      state.product = {
+        ...state.product,
+        list,
+        hasMore,
+        loading: false,
+      };
+    })
+    .addCase(getProductData.rejected, (state, action) => {
+      state.product.loading = false;
       message.open({ content: action.error.message });
     })
   }

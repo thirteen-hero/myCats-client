@@ -1,13 +1,11 @@
 import React, { useEffect, useRef } from 'react';
 
 import { HomeState,  } from '@/store/reducers/home';
-import { 
-  useCommonDispatch, 
-  useCommonSelector 
-} from '@/store/hooks';
+import { useCommonSelector } from '@/store/hooks';
 
 import HomeHeader from './components/HomeHeader';
 import HomeSlider from './components/HomeSlider';
+import ProductList from './components/ProductList';
 
 import styles from './home.module.less';
 
@@ -21,6 +19,7 @@ const Home = () => {
       <HomeHeader />
       <div className={styles.container} ref={containerRef}>
         <HomeSlider />
+        <ProductList />
       </div>
     </div>
   )

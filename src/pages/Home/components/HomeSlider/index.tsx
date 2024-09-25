@@ -4,7 +4,7 @@ import { Carousel } from 'antd';
 import { HomeState, getSliderData } from '@/store/reducers/home';
 import { useCommonDispatch, useCommonSelector } from '@/store/hooks';
 
-import styles from './index.module.less';
+// import styles from './index.module.less';
 
 const HomeSlider = () => {
   const dispatch = useCommonDispatch();
@@ -16,7 +16,7 @@ const HomeSlider = () => {
   }, []);
 
   return (
-    <div className={styles.slider}>
+    <div>
       <Carousel>
         {sliders.map(item => <img key={item.id} src={item.url} />)}
       </Carousel>
