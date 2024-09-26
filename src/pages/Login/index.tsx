@@ -28,7 +28,7 @@ const Login = () => {
       <NavHeader>用户登录</NavHeader>
       <Form 
         form={form}
-        labelCol={{ flex: '90px' }}
+        labelCol={{ flex: '150px' }}
         labelAlign='left'
         labelWrap
         className={styles.loginForm} 

@@ -29,7 +29,7 @@ const Register = () => {
       <NavHeader>用户注册</NavHeader>
       <Form 
         form={form}
-        labelCol={{ flex: '90px' }}
+        labelCol={{ flex: '180px' }}
         labelAlign='left'
         labelWrap
         className={styles.registerForm} 
