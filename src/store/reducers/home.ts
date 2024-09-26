@@ -33,6 +33,7 @@ interface ProductPayload {
   category: CAT_TYPE;
   offset: number;
   limit: number;
+  isRefresh: boolean;
 }
 
 export interface HomeState {
@@ -64,9 +65,10 @@ export const getSliderData = createAsyncThunk('home/getSliders', async() => {
 })
 
 export const getProductData = createAsyncThunk('home/getProduct', async(data: ProductPayload) => {
-  const { category, offset, limit } = data;
+  const { category, offset, limit, isRefresh } = data;
   const result = await getProduct(category, offset, limit);
   result.data.offset = offset;
+  result.data.isRefresh = isRefresh;
   return result;
 })
 
@@ -93,10 +95,10 @@ export const counterSlice = createSlice({
       state.product.loading = true;
     })
     .addCase(getProductData.fulfilled, (state, action) => {
-      const { list, hasMore, offset } = action.payload.data;
+      const { list, hasMore, offset, isRefresh } = action.payload.data;
       state.product = {
         ...state.product,
-        list: [...state.product.list, ...list],
+        list: isRefresh ? list : [...state.product.list, ...list],
         hasMore,
         offset,
         loading: false,

@@ -4,7 +4,7 @@ import { Transition } from 'react-transition-group';
 import classNames from 'classnames';
 
 import sa from '@/assets/imgs/sa.jpg';
-import { HomeState, CAT_TYPE } from '@/store/reducers/home';
+import { HomeState, CAT_TYPE, getProductData } from '@/store/reducers/home';
 import { useCommonSelector, useCommonDispatch } from '@/store/hooks';
 
 import styles from './index.module.less';
@@ -27,7 +27,8 @@ const HomeHeader = () => {
   const [menuVisible, setMenuVisible] = useState<boolean>(false);
 
   const dispatch = useCommonDispatch();
-  const { currentCategory }: HomeState = useCommonSelector(state => state.home);
+  const { currentCategory, product }: HomeState = useCommonSelector(state => state.home);
+  const { offset, limit } = product;
 
   const handleClick = (event: React.MouseEvent<HTMLUListElement>) => {
     const target: HTMLUListElement = event.target as HTMLUListElement;
@@ -36,6 +37,12 @@ const HomeHeader = () => {
       type: 'home/handleCategoryChange', 
       payload: category,
     });
+    dispatch(getProductData({
+      category,
+      offset, 
+      limit,
+      isRefresh: true,
+    }));
     setMenuVisible(false);
   }
 

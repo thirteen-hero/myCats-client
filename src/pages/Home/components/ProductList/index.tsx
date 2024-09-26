@@ -1,12 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { MenuOutlined } from '@ant-design/icons';
 import { Card, Button, Alert } from 'antd';
 
 import { getProductData, HomeState, Product } from '@/store/reducers/home';
 import { useCommonDispatch, useCommonSelector } from '@/store/hooks';
+
 import styles from './index.module.less';
 
 const ProductList = () => {
+  const loaderRef = useRef<HTMLDivElement>(null);
   const dispatch = useCommonDispatch();
   const { product, currentCategory }: HomeState = useCommonSelector(store => store.home);
   const { list, offset, limit, hasMore, loading } = product;
@@ -15,26 +17,26 @@ const ProductList = () => {
   }, []);
 
   useEffect(() => {
-    const loader = document.getElementById('loader');
-    if (!loader) return;
+    if (!loaderRef.current) return;
     const observer = new IntersectionObserver((entries) => {
       const { isIntersecting } = entries[0];
       if (isIntersecting && hasMore) {
         getProductList(offset + 1);
       }
     })
-    observer.observe(loader)
+    observer.observe(loaderRef.current)
     return () => {
       observer.disconnect();
     }
   }, [hasMore, offset]);
 
-  // 获取商品列表+触底加载
+  // 获取商品列表
   const getProductList = (offset: number) => {
     dispatch(getProductData({
       category: currentCategory,
       offset, 
       limit,
+      isRefresh: false,
     }));
   }
 
@@ -57,7 +59,7 @@ const ProductList = () => {
           />
         </Card>
       ))}
-      <div id='loader' />
+      <div ref={loaderRef} />
       {hasMore ? (
         <Button 
           loading={loading}
