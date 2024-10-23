@@ -18,6 +18,7 @@ const Profile = lazy(() => import(/* webpackChunkName: 'Profile' */ './pages/Pro
 const Login = lazy(() => import(/* webpackChunkName: 'Login' */ './pages/Login'));
 const Register = lazy(() => import(/* webpackChunkName: 'Register' */ './pages/Register'));
 const Detail = lazy(() => import(/* webpackChunkName: 'Detail' */ './pages/Detail'));
+const Cart = lazy(() => import(/* webpackChunkName: 'Cart' */ './pages/Cart'));
 
 const root = createRoot(
   document.getElementById('root') as HTMLElement
@@ -37,6 +38,7 @@ root.render(
                 <Route key="login" path="/login" element={<Login />} />
                 <Route key="register" path="/register" element={<Register />} />
                 <Route key="detail" path={`/detail`} element={<Detail />} />
+                <Route key="cart" path={`/cart`} element={<Cart />} />
               </Routes>
             </div>
             <Tabs />

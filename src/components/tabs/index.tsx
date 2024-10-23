@@ -22,7 +22,7 @@ const Tabs = () => {
         <span className={styles.text}>首页</span>
       </NavLink>
       <NavLink 
-        to="/mine" 
+        to="/cart" 
         className={({ isActive }) => {
           return classNames(styles.tab, isActive ? styles.active : styles.default)
         }}

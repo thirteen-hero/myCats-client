@@ -2,11 +2,13 @@ import { configureStore } from "@reduxjs/toolkit";
 
 import homeReducer from './reducers/home';
 import profileReducer from './reducers/profile';
+import cartReducer from './reducers/cart';
 
 const store = configureStore({
   reducer: {
     home: homeReducer,
     profile: profileReducer,
+    cart: cartReducer,
   }
 })
 

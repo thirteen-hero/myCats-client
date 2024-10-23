@@ -72,7 +72,7 @@ export const getProductData = createAsyncThunk('home/getProduct', async(data: Pr
   return result;
 })
 
-export const counterSlice = createSlice({
+export const homeSlice = createSlice({
   name: 'home',
   initialState,
   reducers: {
@@ -111,4 +111,4 @@ export const counterSlice = createSlice({
   }
 })
 
-export default counterSlice.reducer;
+export default homeSlice.reducer;
