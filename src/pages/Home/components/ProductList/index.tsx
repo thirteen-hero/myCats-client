@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { MenuOutlined } from '@ant-design/icons';
 import { Card, Button, Alert } from 'antd';
+import { useNavigate } from 'react-router-dom';
 
 import { getProductData, HomeState, Product } from '@/store/reducers/home';
 import { useCommonDispatch, useCommonSelector } from '@/store/hooks';
@@ -8,6 +9,7 @@ import { useCommonDispatch, useCommonSelector } from '@/store/hooks';
 import styles from './index.module.less';
 
 const ProductList = () => {
+  const navigate = useNavigate();
   const loaderRef = useRef<HTMLDivElement>(null);
   const dispatch = useCommonDispatch();
   const { product, currentCategory }: HomeState = useCommonSelector(store => store.home);
@@ -52,6 +54,7 @@ const ProductList = () => {
           hoverable={true}
           style={{ width: '100%' }}
           cover={<img src={item.poster} />}
+          onClick={() => navigate(`/detail/?id=${item.id}`)}
         >
           <Card.Meta 
             title={item.title} 
