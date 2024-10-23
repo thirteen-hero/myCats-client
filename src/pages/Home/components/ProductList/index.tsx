@@ -48,9 +48,9 @@ const ProductList = () => {
         <MenuOutlined className={styles.menu} />
         全部
       </div>
-      {list.map((item: Product) => (
+      {list.map((item: Product, index: number) => (
         <Card 
-          key={item.id}
+          key={index}
           hoverable={true}
           style={{ width: '100%' }}
           cover={<img src={item.poster} />}
