@@ -15,13 +15,16 @@ import styles from './home.module.less';
 
 const Home = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const productRef = useRef(null);
   const dispatch = useCommonDispatch();
   const homeState: HomeState = useCommonSelector(state => state.home);
   const { currentCategory, product } = homeState;
-  const { offset, limit } = product;
+  const { limit } = product;
   useEffect(() => {
     if (!containerRef.current) return;
-    downRefresh(containerRef.current, refreshProductList)
+    downRefresh(containerRef.current, refreshProductList);
+    // @ts-ignore
+    containerRef.current.addEventListener('scroll', productRef.current);
   }, []);
 
   // 获取商品列表
@@ -42,7 +45,7 @@ const Home = () => {
       </div>
       <div className={styles.container} ref={containerRef}>
         <HomeSlider />
-        <ProductList />
+        <ProductList ref={productRef} containerRef ={containerRef} />
       </div>
     </div>
   )

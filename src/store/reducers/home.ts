@@ -98,7 +98,7 @@ export const homeSlice = createSlice({
       const { list, hasMore, offset, isRefresh } = action.payload.data;
       state.product = {
         ...state.product,
-        list: isRefresh ? list : [...state.product.list, ...list],
+        list: isRefresh ? [...state.product.list, ...list] : list,
         hasMore,
         offset,
         loading: false,
