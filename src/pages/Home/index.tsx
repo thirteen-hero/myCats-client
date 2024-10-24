@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { Spin } from 'antd';
 
 import { 
   useCommonSelector,
@@ -25,17 +26,20 @@ const Home = () => {
 
   // 获取商品列表
   const refreshProductList = () => {
-    // dispatch(getProductData({
-    //   category: currentCategory,
-    //   offset: 0, 
-    //   limit,
-    //   isRefresh: true,
-    // }));
+    dispatch(getProductData({
+      category: currentCategory,
+      offset: 0, 
+      limit,
+      isRefresh: true,
+    }));
   }
 
   return (
     <div className={styles.home} >
       <HomeHeader />
+      <div className={styles.refresh}>
+        <Spin size='large' />
+      </div>
       <div className={styles.container} ref={containerRef}>
         <HomeSlider />
         <ProductList />

@@ -17,7 +17,7 @@ const HomeSlider = () => {
 
   return (
     <div>
-      <Carousel>
+      <Carousel effect='scrollx' autoplay draggable={false}>
         {sliders.map(item => <img key={item.id} src={item.url} />)}
       </Carousel>
     </div>
