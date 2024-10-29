@@ -36,6 +36,41 @@ const Detail = () => {
 
   // 新增商品到购物车
   const addCartItem = (detail: Product) => {
+    const cover: HTMLDivElement | null = document.querySelector('img');
+    const cart: HTMLAreaElement | null = document.querySelector('a .anticon.anticon-shopping-cart');
+    if (!cover || !cart) return;
+    const cloneCover: HTMLDivElement = cover.cloneNode(true) as HTMLDivElement;
+    const coverLeft = cover.getBoundingClientRect().left; // 元素左边框距离屏幕左边距离
+    const coverTop = cover.getBoundingClientRect().top; // 元素上边框距离屏幕顶部距离
+    const coverWidth = cover.offsetWidth;
+    const coverHeight = cover.offsetHeight;
+    const cartRight = cart.getBoundingClientRect().right; // 元素右边框距离屏幕左边距离
+    const cartBottom = cart.getBoundingClientRect().bottom; // 元素底边框距离屏幕顶部距离
+    const cartWidth = cart.offsetWidth;
+    const cartHeight = cart.offsetHeight;
+    cloneCover.style.cssText = (
+      `
+        z-index: 1000;
+        opacity: 0.8;
+        position: fixed;
+        width: ${coverWidth}px;
+        height: ${coverHeight}px;
+        top: ${coverTop}px;
+        left: ${coverLeft}px;
+        transition: all 2s ease-in-out;
+      `
+    );
+    document.body.appendChild(cloneCover);
+    setTimeout(() => {
+      cloneCover.style.left = `${cartRight - cartWidth / 2}px`;
+      cloneCover.style.top = `${cartBottom - cartHeight / 2}px`;
+      cloneCover.style.width = '0px';
+      cloneCover.style.height = '0px';
+      cloneCover.style.opacity = '0.5';
+    }, 0);
+    setTimeout(() => {
+      cloneCover.parentNode?.removeChild(cloneCover);
+    }, 2000);
     dispatch({
       type: 'cart/addCartItem',
       payload: detail,
