@@ -39,12 +39,9 @@ export const cartSlice = createSlice({
     removeCartItem: (state, action) => {
       const removeIndex = state.findIndex((item: CartItem) => item.product.id === action.payload.id);
       if (removeIndex !== -1) {
-        if (state[removeIndex].count >= 1)
-        state[removeIndex].count--;
-      } else {
         state.splice(removeIndex, 1);
       }
-      message.success('修改商品数量成功！');
+      message.success('删除商品成功！');
     },
     // 清空购物车
     clearCartItem: (state) => {
@@ -59,14 +56,20 @@ export const cartSlice = createSlice({
     },
     // 修改选中商品条目
     changeCheckedCartItem: (state, action) => {
-      const currIndex = state.findIndex((item: CartItem) => item.product.id === action.payload.id);
-      if (currIndex !== -1) {
-        state[currIndex].checked = !state[currIndex].checked;
-      }
+      state.forEach((item: CartItem, index: number) => {
+        if (action.payload.selectedRowKeys.find((checkedItem: string) => item.id === checkedItem)) {
+          state[index].checked = true;
+          return;
+        } 
+        state[index].checked = false;
+      })
     },
     // 结算
     settle: () => {
 
+    },
+    clearCart: (state) => {
+      state.length = 0;
     }
   },
   extraReducers: builder => {
